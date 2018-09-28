@@ -2,6 +2,8 @@ const express = require('express');
 const hbs = require('hbs');
 const fs = require('fs');
 
+
+//to connect to heroku
 const port = process.env.PORT || 3000;
 var app = express();
 
@@ -12,6 +14,7 @@ app.set('view engine', 'hbs');
 app.use((req, res, next) => {
     var now = new Date().toString();
    var log = `${now}: ${req.method} ${req.url}`;
+   
    console.log(log);
    fs.appendFile('server.log', log + '\n ', (err) => {
        if(err) {
@@ -42,7 +45,7 @@ app.get('/', (req, res) => {
       pageTitle: 'Home page',
       welcomeMessage: 'Welcome to my server-web site',
         });
-}); 
+});
 
 app.get('/about', (req, res) => {
     // res.send('About Idam on Express');
@@ -61,7 +64,7 @@ app.get('/projects', (req, res) => {
     res.render('projects.hbs', {
       pageTitle: 'Projects'
         });
-}); 
+});
 
 app.listen(port, () => {
     console.log(`Server is up on port ${port}`);
